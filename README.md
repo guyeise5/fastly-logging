@@ -15,7 +15,7 @@ docker run -d --name ngrok-fastly-logging --network fastly-logging -e NGROK_AUTH
 #### Helm Chart
 ```shell
 helm repo add guyeise1 https://guyeise1.github.io/helm-charts/
-helm install fastly-loggin --set ngrok.enabled=true --set ngrok.authToken=<NGROK_AUTHTOKEN> 
+helm install my-release guyeise1/fastly-loggin --set ngrok.enabled=true --set ngrok.authToken=<NGROK_AUTHTOKEN> 
 ```
 
 ---
