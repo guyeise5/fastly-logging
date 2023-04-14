@@ -6,7 +6,6 @@ const app = express()
 const port = Number(process.env.PORT) || 8080
 
 app.get("/.well-known/fastly/logging/challenge", (_, res) => {
-  console.log(services().join("\n"))
   res.status(200).send(services().join("\n"))
 })
 app.use(express.text())
