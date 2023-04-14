@@ -35,7 +35,7 @@ deploy the service
 docker run -d --name fastly-logging --network fastly-logging guyeise5/fastly-logging
 ```
 deploy ngrok 
-```
+```console
 docker run -d --name fastly-logging-ngrok --network fastly-logging -e NGROK_AUTHTOKEN=<NGROK_TOKEN> ngrok/ngrok:alpine http --log=stdout [--hostname=<hostname>] http://fastly-logging:8080
 ```
 showing the logs
