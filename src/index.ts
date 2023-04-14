@@ -1,16 +1,13 @@
 import express from "express";
+import { services } from "./services";
 
 
 const app = express()
 const port = Number(process.env.PORT) || 8080
 
-app.get("/.well-known/fastly/logging/challenge", (req, res) => {
-    const services = process.env.FASTLY_HASHED_SERVICES;
-    if(services) {
-      res.status(200).end(services.split(",").join("\n"))
-    } else {
-      res.status(200).send("*");
-    }
+app.get("/.well-known/fastly/logging/challenge", (_, res) => {
+  console.log(services().join("\n"))
+  res.status(200).send(services().join("\n"))
 })
 app.use(express.text())
 app.post("*", (req, res) => {
