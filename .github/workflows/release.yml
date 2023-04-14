@@ -49,5 +49,5 @@ jobs:
 
             console.log(`Created release ${createReleaseResponse.data.html_url}`);
           env:
-            VERSION: ${{ steps.version.outputs.value }}
+            VERSION: ${{ steps.extract_version.outputs.version }}
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
