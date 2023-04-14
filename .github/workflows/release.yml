@@ -3,6 +3,10 @@ on:
   push:
     branches:
       - main
+
+permission:
+  content: write
+
 jobs:
   extract_version:
     runs-on: ubuntu-latest
@@ -26,28 +30,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Create Release
-        uses: actions/github-script@v4
+
+      - run: |
+          gh release create v${{ needs.extract_version.outputs.version }} --generate-notes
         env:
-          VERSION: "${{ needs.extract_version.outputs.version }}"
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-        with:
-          script: |
-            const { context, GitHub } = require("@actions/github");
-
-            const octokit = new GitHub(process.env.GITHUB_TOKEN);
-            const { owner, repo } = context.repo;
-
-            const version = "v" + process.env.VERSION;
-            console.log("version", version);
-
-            const createReleaseResponse = await octokit.repos.createRelease({
-              owner,
-              repo,
-              tag_name: version,
-              name: `Release ${version}`,
-              draft: false,
-              prerelease: false
-            });
-
-            console.log(`Created release ${createReleaseResponse.data.html_url}`);
+          GITHUB_TOKEN: ${{ github.TOKEN }}
+        shell: bash
+        name: Creates a release in GitHub and uploads attachments
