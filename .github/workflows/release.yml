@@ -15,14 +15,14 @@ jobs:
           node-version: '18.x'
       - name: Get package version
         id: version
-        run: echo "vrelease=$(node -p -e "require('./package.json').version")" >> $GITHUB_OUTPUT
+        run: echo "value=$(node -p -e "require('./package.json').version")" >> "$GITHUB_OUTPUT"
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.vars.outputs.vrelease }}
-          release_name: Release ${{ steps.vars.outputs.vrelease }}
+          tag_name: ${{ steps.version.outputs.value }}
+          release_name: Release ${{ steps.version.outputs.value }}
           draft: false
           prerelease: false
