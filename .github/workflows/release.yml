@@ -29,7 +29,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - run: gh release create v${{ needs.extract_version.outputs.version }} --generate-notes
+      - run: gh release create v${{ needs.extract_version.outputs.version }} --generate-notes -t "Release ${{ needs.extract_version.outputs.version }}"
         env:
           GITHUB_TOKEN: ${{ github.TOKEN }}
         shell: bash
