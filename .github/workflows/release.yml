@@ -20,7 +20,7 @@ jobs:
   create_release:
     name: Create Release
     runs-on: ubuntu-latest
-    needs: Extract Version
+    needs: extract_version
     steps:
     - name: Create Release
       id: create_release
