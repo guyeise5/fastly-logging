@@ -26,6 +26,4 @@ jobs:
         with:
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: 
-          - guyeise5/fastly-logging:${{ github.event.release.tag_name }}
-          - guyeise5/fastly-logging:latest
+          tags: guyeise5/fastly-logging:${{ github.event.release.tag_name }},guyeise5/fastly-logging:latest
