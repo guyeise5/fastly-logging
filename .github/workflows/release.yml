@@ -27,12 +27,27 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
+        uses: actions/github-script@v4
         with:
-          tag_name: v${{ needs.extract_version.outputs.version }}
-          release_name: Release ${{ needs.extract_version.outputs.version }}
-          draft: false
-          prerelease: false
+          script: |
+            const { context, GitHub } = require("@actions/github");
+
+            const octokit = new GitHub(process.env.GITHUB_TOKEN);
+            const { owner, repo } = context.repo;
+
+            const version = "v" + process.env.VERSION;
+            console.log("version", version);
+
+            const createReleaseResponse = await octokit.repos.createRelease({
+              owner,
+              repo,
+              tag_name: version,
+              name: `Release ${version}`,
+              draft: false,
+              prerelease: false
+            });
+
+            console.log(`Created release ${createReleaseResponse.data.html_url}`);
+          env:
+            VERSION: ${{ steps.version.outputs.value }}
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
