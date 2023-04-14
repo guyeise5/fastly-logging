@@ -15,7 +15,7 @@ jobs:
           node-version: '18.x'
       - name: Get package version
         id: version
-        run: echo "vrelease=$(node -p -e "require('./package.json').version") >> $GITHUB_OUTPUT"
+        run: echo "vrelease=$(node -p -e "require('./package.json').version")" >> $GITHUB_OUTPUT
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
