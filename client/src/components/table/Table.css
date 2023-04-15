@@ -1,0 +1,7 @@
+table, th, td {
+    border: 1px solid;
+}
+td {
+    max-width: 0;
+    word-wrap: break-word
+}
