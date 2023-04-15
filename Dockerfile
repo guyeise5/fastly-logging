@@ -1,28 +1,30 @@
-FROM node as builder
-
-# Create app directory
-WORKDIR /usr/src/app
-
-# Install app dependencies
-COPY package*.json ./
-
-RUN npm i
-
-COPY . .
-
+FROM node:latest AS client
+WORKDIR /client
+COPY client/package.json ./package.json
+COPY client/tsconfig.json ./tsconfig.json
+COPY client/src ./src
+COPY client/public ./public
+RUN npm i 
 RUN npm run build
 
+### 
+
+FROM node as api
+WORKDIR /api
+COPY api/package.json ./package.json
+COPY api/src ./src
+COPY api/tsconfig.json ./tsconfig.json
+RUN npm i
+RUN npm run build
+
+###
+
 FROM node:slim
-
-# Create app directory
-WORKDIR /usr/src/app
-
-# Install app dependencies
-COPY package*.json ./
-
-RUN npm i --production
-
-COPY --from=builder /usr/src/app/dist ./dist
+WORKDIR /api
+COPY ./api/package.json ./package.json
+COPY --from=client /client/build /client/build
+COPY --from=api /api/build ./build
+RUN npm i --omit=dev
 
 EXPOSE 8080
-CMD [ "node", "dist/index.js" ]
+CMD [ "node", "./build/index.js" ]
