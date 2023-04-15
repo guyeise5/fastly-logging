@@ -22,7 +22,7 @@ function App() {
   })
 
   return (
-    <div className='center'>
+    <div>
       <Search updateFilter={setFilter} />
       <Table messages={filterMessages(messages, filter)} />
     </div>
