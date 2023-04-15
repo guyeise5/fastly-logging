@@ -16,7 +16,7 @@ function App() {
     }, 1000)
     return () => clearInterval(interval)
   })
-  
+
   return (
     <div className='center'>
       <Search updateFilter={setFilter} />
@@ -26,7 +26,7 @@ function App() {
 }
 
 async function fetchMessages(): Promise<Message[]> {
-  const response = await axios.get<Message[]>("http://localhost:8080/api/v1/log", { timeout: 1000 });
+  const response = await axios.get<Message[]>( process.env.REACT_APP_SERVER_URL || "" + "/api/v1/log", { timeout: 1000 });
   return response.data;
 }
 
