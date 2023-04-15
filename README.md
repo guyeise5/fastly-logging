@@ -1,21 +1,14 @@
 # Fastly Logging
 An HTTP server that prints Fastly logs to stdout.
+Also has a base web UI.
 
 ### Pre-Requirements
-* Docker / npm 
-## TL;DR
+* Docker 
 
-#### Docker
+## TL;DR
 ```console
 docker run --rm -p 8080:8080 guyeise5/fastly-logging
 ```
-
-#### npm
-```console
-npm install
-npm start
-```
-
 
 ---
 ## Features

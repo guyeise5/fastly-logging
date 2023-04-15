@@ -1,11 +1,11 @@
-import express from "express";
-import { services } from "./services";
-import { Queue } from "./buffer";
-import cors from 'cors';
+import express from "express"
+import { services } from "./services"
+import { Queue } from "./buffer"
+import cors from 'cors'
+import path from 'path'
+const buffer = new Queue<{ date: Date, message: string }>()
 
-const buffer = new Queue<{ date: Date, message: string }>();
-
-const maxSize = Number(process.env.BUFFER_MAX_SIZE) || 1000;
+const maxSize = Number(process.env.BUFFER_MAX_SIZE) || 1000
 const app = express()
 const port = Number(process.env.PORT) || 8080
 app.use(cors())
@@ -28,4 +28,7 @@ app.post("*", (req, res) => {
   res.status(200).json({ ok: true })
 })
 
-app.listen(port, () => console.log(`APP is listening on ${port}`))
+app.use(express.static(path.join(__dirname, "../../client/build")))
+
+
+app.listen(port, () => console.log(`APP is running on http://localhost:${port}`))
