@@ -2,7 +2,7 @@ import './App.css';
 import Table from './components/table/Table'
 import Search from './components/search/Search';
 import { useEffect, useState } from "react";
-import {Message} from './types'
+import { Message } from './types'
 import axios from 'axios';
 
 function App() {
@@ -11,8 +11,12 @@ function App() {
 
   useEffect(() => {
     const interval = setInterval(async () => {
-      const messages = await fetchMessages()
-      setMessages(messages)
+      try {
+        const messages = await fetchMessages()
+        setMessages(messages)
+      } catch(error) {
+        console.error("failed to fetch logs", error)
+      }
     }, 1000)
     return () => clearInterval(interval)
   })
@@ -20,13 +24,14 @@ function App() {
   return (
     <div className='center'>
       <Search updateFilter={setFilter} />
-      <Table messages={filterMessages(messages, filter)}/>
+      <Table messages={filterMessages(messages, filter)} />
     </div>
   );
 }
 
 async function fetchMessages(): Promise<Message[]> {
-  const response = await axios.get<Message[]>( process.env.REACT_APP_SERVER_URL || "" + "/api/v1/log", { timeout: 1000 });
+  const url = (process.env.REACT_APP_SERVER_URL || "") + "/api/v1/log"
+  const response = await axios.get<Message[]>(url, { timeout: 1000 })
   return response.data;
 }
 
