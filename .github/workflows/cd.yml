@@ -7,7 +7,7 @@ on:
 jobs:
   extract_version:
     runs-on: ubuntu-latest
-    name: Extract version from package.json
+    name: Extract version
     outputs:
       version: ${{ steps.version.outputs.value }}
     steps:
@@ -19,7 +19,7 @@ jobs:
           node-version: '18.x'
       - name: Get package version
         id: version
-        run: echo "value=$(node -p -e "require('./package.json').version")" >> "$GITHUB_OUTPUT"
+        run: echo "value=$(node -p -e "require('./metadata.json').version")" >> "$GITHUB_OUTPUT"
 
   create_release:
     runs-on: ubuntu-latest
