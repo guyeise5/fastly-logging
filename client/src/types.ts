@@ -1,1 +1,1 @@
-export type Message = { date: Date, message: string }
+export type Message = { date: Date, message: any }

@@ -1,5 +1,7 @@
 import './Table.css'
 import { Message } from '../../types'
+import { messageBodyAsString } from '../../App';
+
 
 function Table({ messages }: { messages: Message[] }) {
     return <table>
@@ -11,7 +13,7 @@ function Table({ messages }: { messages: Message[] }) {
             {messages.map((msg, i) => (
                 <tr key={i}>
                     <td>{msg.date.toString()}</td>
-                    <td>{msg.message}</td>
+                    <td>{messageBodyAsString(msg)}</td>
                 </tr>
             ))}
         </tbody>

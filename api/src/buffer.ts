@@ -3,9 +3,11 @@ export interface IQueue<A> {
     pop(): A | undefined
     toArray(): Readonly<A[]>
     length: number
+    clear(): void
 }
 
 export class Queue<A> implements IQueue<A> {
+    
     private in: A[] = [];
     private out: A[] = [];
 
@@ -33,6 +35,11 @@ export class Queue<A> implements IQueue<A> {
         return this.out;
     }
 
+    clear(): void {
+        this.in = []
+        this.out = []
+    }
+    
     get length(): number {
         return this.in.length + this.out.length;
     }
