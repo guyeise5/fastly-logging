@@ -33,6 +33,7 @@ app.post("*", auth, (req, res) => {
     })
   } else {
     buffer.push({ date: new Date(), message: req.body })
+    console.log(req.body)
   }
 
   while (buffer.length > maxSize) {
