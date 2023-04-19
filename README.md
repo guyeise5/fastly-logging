@@ -6,9 +6,17 @@ Also has a base web UI.
 * Docker 
 
 ## TL;DR
+1. start the container
 ```console
-docker run --rm -p 8080:8080 guyeise5/fastly-logging
+docker pull guyeise5/fastly-logging
+docker run --name fastly-logging -p 8080:8080 guyeise5/fastly-logging
 ```
+2. configure in fastly an HTTP logger with URL as "https://<external-domain>/api/v1/log"
+3. see the logs 
+```console
+docker logs fastly-logging
+```
+4. done
 
 ---
 ## Features
@@ -17,6 +25,18 @@ lets you control which services are allowed to send logs to your deployment.
 ```console
 docker run --rm -e FASTLY_SERVICES=<SERVICE_ID_1,SERVICE_ID_2,...> -p 8080:8080 guyeise5/fastly-logging
 ```
+---
+### Authorization
+Authorization lets you control who can access your service.
+1. start the container with authorization key
+```console
+docker pull guyeise5/fastly-logging
+docker run --name fastly-logging -e AUTH_TOKEN="Secr3tT0ken" -p 8080:8080 guyeise5/fastly-logging
+```
+2. Go to Fastly and configure in your logger under the advanced options:
+    * **Custom header name** = `Authorization`
+    * **Custom header value** = `<Your token>`
+
 ---
 ### Deploy with ngrok
 create docker network
@@ -29,13 +49,12 @@ docker run -d --name fastly-logging --network fastly-logging guyeise5/fastly-log
 ```
 deploy ngrok 
 ```console
-docker run -d --name fastly-logging-ngrok --network fastly-logging -e NGROK_AUTHTOKEN=<NGROK_TOKEN> ngrok/ngrok:alpine http --log=stdout [--hostname=<hostname>] http://fastly-logging:8080
+docker run -d --name fastly-logging-ngrok --network fastly-logging \
+-e NGROK_AUTHTOKEN=<NGROK_TOKEN> ngrok/ngrok:alpine \
+ http --log=stdout [--hostname=<hostname>] http://fastly-logging:8080
 ```
-showing the logs
-```console
-docker logs fastly-logging
-```
-showing ngrok logs
+
+ngrok logs
 ```console
 docker logs fastly-logging-ngrok
 ```

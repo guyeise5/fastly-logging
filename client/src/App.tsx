@@ -36,7 +36,15 @@ async function fetchMessages(): Promise<Message[]> {
 }
 
 function filterMessages(messages: Message[], filter: string): Message[] {
-  return messages.filter(msg => filter?.split(' ')?.every(f => msg.message.includes(f)))
+  return messages.filter(msg => filter?.split(' ')?.every(f => messageBodyAsString(msg).includes(f)))
+}
+
+export function messageBodyAsString(message: Message): string {
+  if(typeof message.message == "string") {
+      return message.message;
+  } else {
+      return JSON.stringify(message.message, undefined, 2)
+  }
 }
 
 export default App;
