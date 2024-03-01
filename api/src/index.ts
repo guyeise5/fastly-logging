@@ -49,7 +49,7 @@ app.listen(port, () => console.log(`
 ============================================================================
 Web UI is available at http://localhost:${port}
 Host to configure in Fastly logger: https://<external-domain>/api/v1/log
-Source code https://github.com/Guyeise1/fastly-logging
+Source code https://github.com/guyeise5/fastly-logging
 ============================================================================
 
 `))
