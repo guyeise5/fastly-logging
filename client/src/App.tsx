@@ -4,6 +4,7 @@ import Search from './components/search/Search';
 import { useEffect, useState } from "react";
 import { Message } from './types'
 import axios from 'axios';
+import Clear from "./components/clear/Clear";
 
 function App() {
   const [filter, setFilter] = useState<string>("");
@@ -24,6 +25,7 @@ function App() {
   return (
     <div>
       <Search updateFilter={setFilter} />
+      <Clear/>
       <Table messages={filterMessages(messages, filter)} />
     </div>
   );
