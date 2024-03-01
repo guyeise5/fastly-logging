@@ -1,0 +1,8 @@
+.clean-button {
+    background-color: orangered;
+    width: 10%
+}
+
+.clean-button:hover {
+    background-color:red
+}
