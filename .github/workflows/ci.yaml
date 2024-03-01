@@ -21,6 +21,7 @@ jobs:
       - run: cd api && npm run build
   build-docker:
     runs-on: ubuntu-latest
+    name: build-docker
     steps:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
