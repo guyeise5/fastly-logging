@@ -1,8 +1,8 @@
 name: Create Release
 on:
   push:
-    branches:
-      - main
+    tags:
+      - 'v**'
 
 jobs:
   extract_version:
@@ -13,13 +13,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18.x'
-      - name: Get package version
+      - name: Get Version
         id: version
-        run: echo "value=$(node -p -e "require('./metadata.json').version")" >> "$GITHUB_OUTPUT"
+        run: echo "value=${GITHUB_REF#refs/*/v}" >> "$GITHUB_OUTPUT"
 
   create_release:
     runs-on: ubuntu-latest
