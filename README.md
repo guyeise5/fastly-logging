@@ -11,7 +11,7 @@ Also has a base web UI.
 docker pull guyeise5/fastly-logging
 docker run --name fastly-logging -p 8080:8080 guyeise5/fastly-logging
 ```
-2. configure in fastly an HTTP logger with URL as "https://<external-domain>/api/v1/log"
+2. configure in fastly an HTTP logger with URL as "https://EXTERNAL-DOMAIN/api/v1/log"
 3. see the logs 
 ```console
 docker logs fastly-logging
