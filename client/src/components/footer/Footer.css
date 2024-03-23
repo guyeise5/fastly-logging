@@ -1,0 +1,25 @@
+footer {
+    text-align: center;
+    padding: 3px;
+    background-color: rgba(24, 6, 6, 0.3);
+    color: white;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    color-scheme: dark !important;
+    --darkreader-neutral-background: #141617;
+    --darkreader-neutral-text: #e3dfd9;
+    --darkreader-selection-background: #0051b3;
+    --darkreader-selection-text: #f4f2ee;
+    font-family: "Benton Sans", "Helvetica Neue", helvetica, arial, sans-serif;
+    box-sizing: border-box;
+    flex: 0 1 auto;
+    font-size: 0.8em;
+    display: flex;
+    justify-content: space-between;
+}
+
+.credit {
+    color: white;
+    text-decoration-line: underline;
+}

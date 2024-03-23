@@ -1,10 +1,11 @@
 import './App.css';
 import Table from './components/table/Table'
 import Search from './components/search/Search';
-import { useEffect, useState } from "react";
-import { Message } from './types'
+import {useEffect, useState} from "react";
+import {Message} from './types'
 import axios from 'axios';
 import Clear from "./components/clear/Clear";
+import Footer from "./components/footer/Footer";
 
 function App() {
   const [filter, setFilter] = useState<string>("");
@@ -27,6 +28,7 @@ function App() {
       <Search updateFilter={setFilter} />
       <Clear/>
       <Table messages={filterMessages(messages, filter)} words={filter.split(" ")} />
+        <Footer/>
     </div>
   );
 }
