@@ -1,9 +1,10 @@
 import './Table.css'
 import { Message } from '../../types'
 import { messageBodyAsString } from '../../App';
+import Highlighter from "react-highlight-words";
 
 
-function Table({ messages }: { messages: Message[] }) {
+function Table({ messages, words }: { messages: Message[], words: string[] }) {
     return <table>
         <tbody>
             <tr>
@@ -13,7 +14,12 @@ function Table({ messages }: { messages: Message[] }) {
             {messages.map((msg, i) => (
                 <tr key={i}>
                     <td>{msg.date.toString()}</td>
-                    <td>{messageBodyAsString(msg)}</td>
+                    <td>{
+                        <Highlighter searchWords={words}
+                                     textToHighlight={messageBodyAsString(msg)}
+                                     autoEscape={true}
+                        />
+                    }</td>
                 </tr>
             ))}
         </tbody>

@@ -26,7 +26,7 @@ function App() {
     <div>
       <Search updateFilter={setFilter} />
       <Clear/>
-      <Table messages={filterMessages(messages, filter)} />
+      <Table messages={filterMessages(messages, filter)} words={filter.split(" ")} />
     </div>
   );
 }
