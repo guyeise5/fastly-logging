@@ -1,5 +1,6 @@
 table, th, td {
     border: 1px solid;
+    margin-bottom: 30px;
 }
 td {
     max-width: 0;

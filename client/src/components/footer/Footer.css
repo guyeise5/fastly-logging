@@ -1,9 +1,9 @@
 footer {
     text-align: center;
     padding: 3px;
-    background-color: rgba(24, 6, 6, 0.3);
+    background-color: rgb(70, 70, 70);
     color: white;
-    position: absolute;
+    position: fixed;
     bottom: 0;
     width: 100%;
     color-scheme: dark !important;
