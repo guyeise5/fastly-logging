@@ -1,6 +1,6 @@
 import './Table.css'
-import { Message } from '../../types'
-import { messageBodyAsString } from '../../App';
+import {Message} from '../../types'
+import {messageBodyAsString} from '../../App';
 import Highlighter from "react-highlight-words";
 
 
@@ -18,6 +18,7 @@ function Table({ messages, words }: { messages: Message[], words: string[] }) {
                         <Highlighter searchWords={words}
                                      textToHighlight={messageBodyAsString(msg)}
                                      autoEscape={true}
+                                     caseSensitive={true}
                         />
                     }</td>
                 </tr>
