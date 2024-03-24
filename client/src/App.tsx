@@ -6,8 +6,10 @@ import {Message} from './types'
 import axios from 'axios';
 import Footer from "./components/footer/Footer";
 import TopButtons from "./components/top-buttons/TopButtons";
+import {SearchOption} from "./components/search-type/SearchType";
 
 function App() {
+  const [searchOption, setSearchOption] = useState<SearchOption>("words")
   const [filter, setFilter] = useState<string>("");
   const [messages, setMessages] = useState<Message[]>([]);
 
@@ -23,12 +25,12 @@ function App() {
     return () => clearInterval(interval)
   })
 
-    const filteredMessages = filterMessages(messages, filter);
+  const filteredMessages = filterMessages(messages, filter, searchOption);
     return (
     <div>
-      <Search updateFilter={setFilter} />
+      <Search updateFilter={setFilter} searchTypeProps={{option: searchOption, setOption: setSearchOption}}/>
         <TopButtons messages={filteredMessages}/>
-        <Table messages={filteredMessages} words={filter.split(" ")}/>
+      <Table messages={filteredMessages} filter={{option: searchOption, text: filter}}/>
         <Footer/>
     </div>
   );
@@ -40,9 +42,26 @@ async function fetchMessages(): Promise<Message[]> {
   return response.data;
 }
 
-function filterMessages(messages: Message[], filter: string): Message[] {
-  return messages.filter(msg => filter?.split(' ')?.every(f => messageBodyAsString(msg).includes(f)))
+function filterMessages(messages: Message[], filter: string, searchOption: string): Message[] {
+  switch (searchOption) {
+    case 'words':
+      return messages.filter(msg => filter?.split(' ')?.every(f => messageBodyAsString(msg).includes(f)))
+    case 'regexp':
+      return messages.filter(msg => toRegExp(filter).test(msg.message))
+    default:
+      throw new Error(`unsupported method ${searchOption}`)
+  }
 }
+
+export function toRegExp(s: string): RegExp {
+  try {
+    return new RegExp(s);
+  } catch (e) {
+    // A regexp that never matches
+    return /a^$/
+  }
+}
+
 
 export function messageBodyAsString(message: Message): string {
   if(typeof message.message == "string") {
