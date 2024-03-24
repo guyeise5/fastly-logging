@@ -4,8 +4,8 @@ import Search from './components/search/Search';
 import {useEffect, useState} from "react";
 import {Message} from './types'
 import axios from 'axios';
-import Clear from "./components/clear/Clear";
 import Footer from "./components/footer/Footer";
+import TopButtons from "./components/top-buttons/TopButtons";
 
 function App() {
   const [filter, setFilter] = useState<string>("");
@@ -23,11 +23,12 @@ function App() {
     return () => clearInterval(interval)
   })
 
-  return (
+    const filteredMessages = filterMessages(messages, filter);
+    return (
     <div>
       <Search updateFilter={setFilter} />
-      <Clear/>
-      <Table messages={filterMessages(messages, filter)} words={filter.split(" ")} />
+        <TopButtons messages={filteredMessages}/>
+        <Table messages={filteredMessages} words={filter.split(" ")}/>
         <Footer/>
     </div>
   );

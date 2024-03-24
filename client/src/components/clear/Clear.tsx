@@ -1,6 +1,5 @@
-
 import './Clear.css'
-import { MdDelete } from "react-icons/md";
+import {MdDelete} from "react-icons/md";
 import axios from "axios";
 
 
@@ -17,7 +16,7 @@ function Clear() {
 
     return (
         <div className={"center"}>
-            <button onClick={clearOnClick} className={"clean-button"} type="button"><MdDelete/></button>
+            <button onClick={clearOnClick} className={"clean-button top-button"} type="button"><MdDelete/></button>
         </div>
     )
 }
