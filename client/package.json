@@ -46,7 +46,7 @@
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",
-    "@types/react": "^18.0.35",
+    "@types/react": "^18.2.69",
     "@types/react-csv": "^1.1.10",
     "@types/react-highlight-words": "^0.16.7"
   }
