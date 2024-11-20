@@ -11,4 +11,7 @@ jobs:
     steps:
     - name: Auto merge the PR
       run: gh pr merge --auto --rebase ${{ github.event.number }}
+      env:
+        GH_TOKEN: ${{ github.token }}
+
     
