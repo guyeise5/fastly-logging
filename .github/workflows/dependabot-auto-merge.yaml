@@ -1,0 +1,14 @@
+on: pull_request
+
+permissions:
+  pull-requests: write
+jobs:
+  dependabot:
+    env:
+      PR_NUMBER: ${{ github.event.number }}
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.user.login == 'dependabot[bot]'
+    steps:
+    - name: Auto merge the PR
+      run: gh pr merge --auto --rebase ${{ github.event.number }}
+    
