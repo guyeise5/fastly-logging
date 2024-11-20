@@ -6,11 +6,12 @@ jobs:
   dependabot:
     env:
       PR_NUMBER: ${{ github.event.number }}
+      REPO_NAME: ${{ github.event.repository.name }}
     runs-on: ubuntu-latest
     if: github.event.pull_request.user.login == 'dependabot[bot]'
     steps:
     - name: Auto merge the PR
-      run: gh pr merge --auto --rebase ${{ github.event.number }}
+      run: gh pr merge --auto --rebase --repo $REPO_NAME  $PR_NUMBER
       env:
         GH_TOKEN: ${{ github.token }}
 
