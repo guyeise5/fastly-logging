@@ -56,3 +56,5 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: guyeise5/fastly-logging:${{ needs.extract_version.outputs.version }},guyeise5/fastly-logging:latest
+          cache-from: type=gha
+
