@@ -1,0 +1,15 @@
+.pause-button {
+    background-color: yellow;
+}
+
+.pause-button:hover {
+    background-color: orange;
+}
+
+.play-button {
+    background-color: green;
+}
+
+.play-button:hover {
+    background-color: lightgreen;
+}

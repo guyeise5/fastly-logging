@@ -13,6 +13,8 @@ const FILTER_QUERY_PARAM = "s";
 
 function App() {
     let [searchParams, setSearchParams] = useSearchParams();
+    const [pauseMode, setPauseMode] = useState(false);
+
     const [searchOption, setSearchOption] = [
         toSearchOption(searchParams.get(SEARCH_OPTION_QUERY_PARAM)),
         (v: string) => {
@@ -36,6 +38,9 @@ function App() {
     useEffect(() => {
         const interval = setInterval(async () => {
             try {
+                if (pauseMode) {
+                    return
+                }
                 const messages = await fetchMessages()
                 setMessages(messages)
             } catch (error) {
@@ -45,12 +50,16 @@ function App() {
         return () => clearInterval(interval)
     })
 
+    function onPauseClick() {
+        setPauseMode((p) => !p)
+    }
+
     const filteredMessages = filterMessages(messages, filter, searchOption);
     return (
         <div>
             <Search updateFilter={setFilter} filter={filter}
                     searchTypeProps={{option: searchOption, setOption: setSearchOption}}/>
-            <TopButtons messages={filteredMessages}/>
+            <TopButtons messages={filteredMessages} pauseClicked={onPauseClick} pauseMode={pauseMode}/>
             <Table messages={filteredMessages} filter={{option: searchOption, text: filter}}/>
             <Footer/>
         </div>
