@@ -14,7 +14,7 @@
   "license": "ISC",
   "devDependencies": {
     "@types/cors": "^2.8.13",
-    "@types/express": "^5.0.0",
+    "@types/express": "^5.0.1",
     "nodemon": "^3.1.9",
     "typescript": "^5.8.2"
   },
